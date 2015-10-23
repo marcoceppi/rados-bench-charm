@@ -1,0 +1,31 @@
+#!/usr/bin/env python
+
+import sys
+import uuid
+sys.path.append('lib')
+
+from charms.rados_bench import Rados
+from charmhelpers.core.hookenv import (
+    action_set,
+    action_get,
+)
+
+r = Rados()
+pool = str(os.environ.get('JUJU_ACTION_ID', uuid.uuid4())
+r.create_pool(pool)
+
+r.bench(pool,
+        'write',
+        action_get('seconds'),
+        action_get('op-size'),
+        action_get('concurrent-operations'))
+
+results = r.bench(pool,
+                  'seq',
+                  action_get('seconds'),
+                  action_get('op-size'),
+                  action_get('concurrent-operations'))
+
+r.delete_pool(pool)
+
+action_set({'meta.raw': results})

@@ -13,7 +13,7 @@ class Rados(rados.Rados):
         if method not in ['write', 'rand', 'seq']:
             raise ValueError('method must be either write, rand, or seq')
 
-        cmd = ['rados', '-p', pool, method]
+        cmd = ['rados', '-p', pool, 'bench', str(seconds), method]
         if op_size:
             try:
                 cmd.extend(['-b', str(human_to_bytes(op_size))])

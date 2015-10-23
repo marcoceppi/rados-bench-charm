@@ -11,7 +11,7 @@ from charmhelpers.core.hookenv import (
 )
 
 r = Rados()
-pool = str(uuid.uuid4())
+pool = str(os.environ.get('JUJU_ACTION_ID', uuid.uuid4())
 r.create_pool(pool)
 
 results = r.bench(pool,
@@ -22,4 +22,4 @@ results = r.bench(pool,
 
 r.delete_pool(pool)
 
-action_set('meta.raw', results)
+action_set({'meta.raw': results})
