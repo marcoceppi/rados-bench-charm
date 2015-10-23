@@ -4,8 +4,8 @@ import sys
 import uuid
 sys.path.append('lib')
 
-from charms.rados import Rados
-from charmhelpers import (
+from charms.rados_bench import Rados
+from charmhelpers.core.hookenv import (
     action_set,
     action_get,
 )
@@ -18,7 +18,8 @@ results = r.bench(pool,
                   'write',
                   action_get('seconds'),
                   action_get('op-size'),
-                  action_get(concurrent-operations))
+                  action_get('concurrent-operations'))
 
 r.delete_pool(pool)
 
+action_set('meta.raw', results)

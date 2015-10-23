@@ -8,7 +8,7 @@ class Rados(rados.Rados):
         super(Rados, self).__init__(conffile='/etc/ceph/ceph.conf')
         self.connect()
 
-    def bench(pool, method, seconds, op_size=None, concurrent=None):
+    def bench(self, pool, method, seconds, op_size=None, concurrent=None):
         # rados -p <pool> bench <seconds> <method> -t <concurrent> -b op_size
         if method not in ['write', 'rand', 'seq']:
             raise ValueError('method must be either write, rand, or seq')
@@ -16,11 +16,11 @@ class Rados(rados.Rados):
         cmd = ['rados', '-p', pool, method]
         if op_size:
             try:
-                cmd.extend(['-b', human_to_bytes(op_size)])
+                cmd.extend(['-b', str(human_to_bytes(op_size))])
             except ValueError:
                 pass # Meh
-        if concurrent.is_integer():
-            cmd.extend(['-t', concurrent])
+        if isinstance(concurrent, int):
+            cmd.extend(['-t', str(concurrent)])
 
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
         out, err = p.communicate()
@@ -42,4 +42,7 @@ def human_to_bytes(human):
 
 def _as_text(bytestring):
     """Naive conversion of subprocess output to Python string"""
+    if not bytestring:
+        return ""
+
     return bytestring.decode("utf-8", "replace")

@@ -2,11 +2,11 @@ write:
   description: "Execution rados bench write against ceph cluster"
   params:
     seconds:
-      type: int
+      type: integer
       description: Duration of bench test
       default: 120
     concurrent-operations:
-      type: int
+      type: integer
       description: How many threads to use
       default: 16
     op-size:
@@ -17,11 +17,11 @@ read-seq:
   description: "Execution rados bench sequential read against ceph cluster. Will run a write to generate objects first"
   params:
     seconds:
-      type: int
+      type: integer
       description: Duration of bench test
       default: 120
     concurrent-operations:
-      type: int
+      type: integer
       description: How many threads to use
       default: 16
     op-size:
@@ -32,11 +32,11 @@ read-rand:
   description: "Execution rados bench sequential read against ceph cluster. Will run a write to generate objects first"
   params:
     seconds:
-      type: int
+      type: integer
       description: Duration of bench test
       default: 120
     concurrent-operations:
-      type: int
+      type: integer
       description: How many threads to use
       default: 16
     op-size:

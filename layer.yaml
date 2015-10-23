@@ -1,1 +1,1 @@
-includes: ['layer: basic', 'layer: benchmark']
+includes: ['layer:basic']
