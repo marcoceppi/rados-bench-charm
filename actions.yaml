@@ -1,0 +1,45 @@
+write:
+  description: "Execution rados bench write against ceph cluster"
+  params:
+    seconds:
+      type: int
+      description: Duration of bench test
+      default: 120
+    concurrent-operations:
+      type: int
+      description: How many threads to use
+      default: 16
+    op-size:
+      type: string
+      description: "Size of the operation (K, M, G, T)"
+      default: 4M
+read-seq:
+  description: "Execution rados bench sequential read against ceph cluster. Will run a write to generate objects first"
+  params:
+    seconds:
+      type: int
+      description: Duration of bench test
+      default: 120
+    concurrent-operations:
+      type: int
+      description: How many threads to use
+      default: 16
+    op-size:
+      type: string
+      description: "Size of the operation (K, M, G, T)"
+      default: 4M
+read-rand:
+  description: "Execution rados bench sequential read against ceph cluster. Will run a write to generate objects first"
+  params:
+    seconds:
+      type: int
+      description: Duration of bench test
+      default: 120
+    concurrent-operations:
+      type: int
+      description: How many threads to use
+      default: 16
+    op-size:
+      type: string
+      description: "Size of the operation (K, M, G, T)"
+      default: 4M
