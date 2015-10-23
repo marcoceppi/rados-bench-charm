@@ -13,6 +13,7 @@ juju add-relation rados-bench ceph
 From [source](https://github.com/marcoceppi/rados-bench-charm.git) execute the following commands:
 
 ```
-charm build -o /tmp/charms
+git clone https://github.com/marcoceppi/rados-bench-charm.git rados-bench
+charm build -o /tmp/charms rados-bench
 juju deploy --repository=/tmp/charms local:trusty/rados-bench
 ```
