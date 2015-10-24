@@ -19,7 +19,8 @@ r.bench(pool,
         'write',
         action_get('seconds'),
         action_get('op-size'),
-        action_get('concurrent-operations'))
+        action_get('concurrent-operations'),
+        cleanup=False)
 
 results = r.bench(pool,
                   'seq',

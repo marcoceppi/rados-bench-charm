@@ -8,7 +8,7 @@ class Rados(rados.Rados):
         super(Rados, self).__init__(conffile='/etc/ceph/ceph.conf')
         self.connect()
 
-    def bench(self, pool, method, seconds, op_size=None, concurrent=None):
+    def bench(self, pool, method, seconds, op_size=None, concurrent=None, cleanup=True):
         # rados -p <pool> bench <seconds> <method> -t <concurrent> -b op_size
         if method not in ['write', 'rand', 'seq']:
             raise ValueError('method must be either write, rand, or seq')
@@ -21,6 +21,8 @@ class Rados(rados.Rados):
                 pass # Meh
         if isinstance(concurrent, int):
             cmd.extend(['-t', str(concurrent)])
+        if not cleanup:
+            cmd.append('--no-cleanup')
 
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
         out, err = p.communicate()
