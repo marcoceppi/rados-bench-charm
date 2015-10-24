@@ -1,5 +1,6 @@
 
 import rados
+from rados_bench_maps import key_map
 import subprocess
 
 
@@ -9,6 +10,26 @@ class Rados(rados.Rados):
         self.connect()
 
     def bench(self, pool, method, seconds, op_size=None, concurrent=None, cleanup=True):
+        def parse(results):
+            data = {}
+            _, summary = results.replace('  ', '').split('Total time run:')[1].split('\n')
+            data['results.duration'] = {'direction': 'asc',
+                                        'units': 'sec',
+                                        'value': summary.pop(0)}
+            data['meta.raw'] = results
+            for item in summary:
+                if ':' not in summary:
+                    continue
+                k, v = summary.split(':')
+                if k not in key_map:
+                    continue
+                mapping = key_map[k].copy()
+                mapping['meta']['value'] = v
+                data[mapping['key']] = mapping['meta'].copy()
+
+            if 'results.bandwidth.average' in data:
+                data['meta.composite'] = data['results.bandwidth.average'].copy()
+
         # rados -p <pool> bench <seconds> <method> -t <concurrent> -b op_size
         if method not in ['write', 'rand', 'seq']:
             raise ValueError('method must be either write, rand, or seq')
@@ -28,7 +49,7 @@ class Rados(rados.Rados):
         out, err = p.communicate()
         if p.returncode:
             raise IOError("{!r} failed:\n{}".format(cmd, _as_text(err)))
-        return _as_text(out) if out else None
+        return parse(_as_text(out)) if out else None
 
 
 def human_to_bytes(human):
