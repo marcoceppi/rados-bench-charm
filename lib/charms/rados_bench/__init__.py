@@ -1,7 +1,8 @@
 
 import rados
-from rados_bench_maps import key_map
 import subprocess
+
+from charms.rados_bench.maps import key_map
 
 
 class Rados(rados.Rados):
@@ -12,7 +13,7 @@ class Rados(rados.Rados):
     def bench(self, pool, method, seconds, op_size=None, concurrent=None, cleanup=True):
         def parse(results):
             data = {}
-            _, summary = results.replace('  ', '').split('Total time run:')[1].split('\n')
+            summary = results.replace('  ', '').split('Total time run:')[1].split('\n')
             data['results.duration'] = {'direction': 'asc',
                                         'units': 'sec',
                                         'value': summary.pop(0)}
