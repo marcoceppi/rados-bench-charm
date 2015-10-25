@@ -23,4 +23,4 @@ results = r.bench(pool,
 
 r.delete_pool(pool)
 
-action_set({'meta.raw': results})
+action_set(results)

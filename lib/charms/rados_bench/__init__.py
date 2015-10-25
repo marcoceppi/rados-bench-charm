@@ -2,7 +2,7 @@
 import rados
 import subprocess
 
-from charms.rados_bench.maps import key_map
+from charms.rados_bench.maps import key_map, flatten
 
 
 class Rados(rados.Rados):
@@ -30,6 +30,8 @@ class Rados(rados.Rados):
 
             if 'results.bandwidth.average' in data:
                 data['meta.composite'] = data['results.bandwidth.average'].copy()
+
+            return dict(flatten(data, join=lambda a,b:a+'.'+b))
 
         # rados -p <pool> bench <seconds> <method> -t <concurrent> -b op_size
         if method not in ['write', 'rand', 'seq']:

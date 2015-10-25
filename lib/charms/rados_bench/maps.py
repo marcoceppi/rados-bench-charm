@@ -1,3 +1,8 @@
+from collections import Mapping
+from itertools import chain
+from operator import add
+
+_FLAG_FIRST = object()
 
 key_map = {
     'Total writes made': {
@@ -41,3 +46,16 @@ key_map = {
         'meta': {'direction': 'asc', 'units': ''},
     },
 }
+
+
+def flatten(d, join=add, lift=lambda x:x):
+    results = []
+    def visit(subdict, results, partialKey):
+        for k,v in subdict.items():
+            newKey = lift(k) if partialKey==_FLAG_FIRST else join(partialKey,lift(k))
+            if isinstance(v,Mapping):
+                visit(v, results, newKey)
+            else:
+                results.append((newKey,v))
+    visit(d, results, _FLAG_FIRST)
+    return results
