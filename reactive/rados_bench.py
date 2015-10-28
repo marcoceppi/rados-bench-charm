@@ -13,3 +13,7 @@ from charms.reactive import (
 def install():
     pass
 
+@hook('benchmarks.required')
+def benchmark(rel):
+    rel.benchmarks(['write', 'read-rand', 'read-seq'])
+    status_set('active', 'streaming metric data')
