@@ -19,17 +19,17 @@ class Rados(rados.Rados):
                                         'value': summary.pop(0)}
             data['meta.raw'] = results
             for item in summary:
-                if ':' not in summary:
+                if ':' not in item:
                     continue
-                k, v = summary.split(':')
+                k, v = item.replace(': ', ':').split(':')
                 if k not in key_map:
                     continue
                 mapping = key_map[k].copy()
                 mapping['meta']['value'] = v
                 data[mapping['key']] = mapping['meta'].copy()
 
-            if 'results.bandwidth.average' in data:
-                data['meta.composite'] = data['results.bandwidth.average'].copy()
+            if 'results.bandwidth-average' in data:
+                data['meta.composite'] = data['results.bandwidth-average'].copy()
 
             return dict(flatten(data, join=lambda a,b:a+'.'+b))
 

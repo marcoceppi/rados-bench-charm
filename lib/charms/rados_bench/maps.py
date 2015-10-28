@@ -14,35 +14,35 @@ key_map = {
         'meta': {'direction': 'desc', 'units': 'bytes'},
     },
     'Bandwidth (MB/sec)': {
-        'key': 'results.bandwidth.average',
+        'key': 'results.bandwidth-average',
         'meta': {'direction': 'desc', 'units': 'MB/s'},
     },
     'Stddev Bandwidth': {
-        'key': 'results.bandwidth.stddev',
+        'key': 'results.bandwidth-stddev',
         'meta': {'direction': 'asc', 'units': ''},
     },
     'Max bandwidth (MB/sec)': {
-        'key': 'results.bandwidth.max',
+        'key': 'results.bandwidth-max',
         'meta': {'direction': 'desc', 'units': 'MB/s'},
     },
     'Min bandwidth (MB/sec)': {
-        'key': 'results.bandwidth.min',
+        'key': 'results.bandwidth-min',
         'meta': {'direction': 'desc', 'units': 'MB/s'},
     },
     'Average Latency': {
-        'key': 'results.latency.average',
+        'key': 'results.latency-average',
         'meta': {'direction': 'asc', 'units': ''},
     },
     'Stddev Latency': {
-        'key': 'results.latency.stddev',
+        'key': 'results.latency-stddev',
         'meta': {'direction': 'asc', 'units': ''},
     },
     'Max latency': {
-        'key': 'results.latency.max',
+        'key': 'results.latency-max',
         'meta': {'direction': 'asc', 'units': ''},
     },
     'Min latency': {
-        'key': 'results.latency.min',
+        'key': 'results.latency-min',
         'meta': {'direction': 'asc', 'units': ''},
     },
 }
