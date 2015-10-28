@@ -11,16 +11,19 @@ from charmhelpers.core.hookenv import (
     action_get,
 )
 
+from charmbenchmark import Benchmark
+
 r = Rados()
 pool = str(os.environ.get('JUJU_ACTION_ID', uuid.uuid4()))
 r.create_pool(pool)
 
+Benchmark.start()
 results = r.bench(pool,
                   'write',
                   action_get('seconds'),
                   action_get('op-size'),
                   action_get('concurrent-operations'))
-
+Benchmark.finish()
 r.delete_pool(pool)
 
 action_set(results)
