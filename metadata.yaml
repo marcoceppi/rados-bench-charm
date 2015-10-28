@@ -9,6 +9,6 @@ requires:
     interface: juju-info
     scope: container
 provides:
-  benchmark:
+  benchmarks:
     interface: benchmark
 
