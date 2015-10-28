@@ -2,13 +2,10 @@ name: rados-bench
 maintainer: Marco Ceppi <marco@ceppi.net>
 summary: "RADOS Benchmarker for Ceph"
 description: |
-  This 
-subordinate: true
+  This thing
 requires:
   ceph:
-    interface: juju-info
-    scope: container
+    interface: ceph-client
 provides:
   benchmarks:
     interface: benchmark
-
