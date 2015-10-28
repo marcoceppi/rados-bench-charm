@@ -1,1 +1,1 @@
-includes: ['layer:basic', 'interface:benchmark'] #, 'interface:ceph-client']
+includes: ['layer:basic', 'layer:radosgw', 'interface:benchmark']

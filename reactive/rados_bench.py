@@ -1,7 +1,9 @@
+import os
 
 from charmhelpers.core.hookenv import (
     status_set,
     relation_get,
+    service_name,
 )
 
 from charmhelpers.fetch import apt_install
@@ -27,23 +29,13 @@ def install():
     update_status()
 
 
-@when('ceph.connected'):
-def ceph_connected():
-    updated_status()
-
-
-@when('ceph.available')
-def configure_ceph(client):
-    status_set('maintenance', 'configuring ceph client')
-    ceph.configure(service=SERVICE_NAME, key=client.key(), auth=client.auth(),
-                   use_syslog=client.use_syslog())
+def ceph_connected(_=None):
     update_status()
 
 
-@when_not('ceph.available')
-def configure_ceph(client):
-    status_set('maintenance', 'removing ceph configuration')
-    os.remove('/etc/ceph/ceph.conf')
+@when('radosgw.ready')
+@when('radosgw.connected')
+def heyo():
     update_status()
 
 
@@ -56,10 +48,10 @@ def benchmark(rel):
 
 @hook('update-status')
 def update_status():
-    if not is_state('ceph.connected'):
+    if not is_state('radosgw.connected'):
         return status_set('blocked', 'need to be connected to a ceph cluster')
 
-    if is_state('ceph.connected') and not is_state('ceph.available'):
+    if is_state('radosgw.connected') and not is_state('radosgw.ready'):
         return status_set('waiting', 'credentials from ceph')
 
 

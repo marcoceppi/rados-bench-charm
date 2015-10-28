@@ -3,9 +3,6 @@ maintainer: Marco Ceppi <marco@ceppi.net>
 summary: "RADOS Benchmarker for Ceph"
 description: |
   This thing
-requires:
-  ceph:
-    interface: ceph-client
 provides:
   benchmarks:
     interface: benchmark
